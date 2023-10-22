@@ -21,8 +21,15 @@
               <tr>
                 <td>{{ $album->id }}</td>
                 <td>{{ $album->name }}</td>
-                <td><img src="{{asset("storage/app/".$album->media[0]['id'].'/'.$album->media[0]['disk'].'/'.$album->media[0]['file_name']) }}" alt="" srcset=""></td>
+                <td><img src="{{asset("storage/app/".$album->media[0]['disk'].'/'.$album->media[0]['id'].'/'.$album->media[0]['file_name']) }}"
+                    style="width:70px;height:70px;"
+                     alt="" srcset=""></td>
+                <td>
+                    <a href="" class="btn btn-success-gradient">عرض</a>
+                    <a href="" class="btn btn-success-gradient">تعديل</a>
+                </td>
               </tr>
+
           @endforeach
         </tbody>
       </table>

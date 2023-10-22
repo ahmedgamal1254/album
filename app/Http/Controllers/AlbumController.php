@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Media;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
@@ -48,16 +50,10 @@ class AlbumController extends Controller
     public function show($id)
     {
         $album=Album::with('media')->find($id);
-    
-        $res=json_encode($album);
-        $json=json_decode($res,true);
 
         return view('show',compact('album'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $album=Album::with('media')->find($id);
@@ -65,9 +61,6 @@ class AlbumController extends Controller
         return view("edit",compact("album"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAlbumRequest $request, Album $album)
     {
         $album=Album::find($request->id);
@@ -85,8 +78,29 @@ class AlbumController extends Controller
         return redirect('/');
     }
 
-    public function destroy(Album $album)
+    public function delete($id)
     {
-        //
+        $album=Album::with('media')->find($id);
+
+        if ($album) {
+            $album = $album->toArray();
+            $media=$album["media"];
+
+            return view("delete", compact("album","media"));
+        } else {
+            // Album not found
+            return "Album not found.";
+        }
+    }
+
+    public function destroy(Request $request){
+        if($request->has("album")){
+            foreach($request->images as $image){
+
+                $media = Media::find($image);
+                $media->model_id=$request->album_id;
+                $media->save();                
+            }
+        }
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $albums=Album::with('media')->get();
     
-    // return $albums;
     return view('welcome',compact('albums'));
 });
 
@@ -21,3 +20,5 @@ Route::post('/store_album',[AlbumController::class,'store'])->name("store");
 Route::get('/album/edit/{id}',[AlbumController::class,'edit'])->name('edit');
 Route::post('/album/update',[AlbumController::class,'update'])->name('update');
 Route::get('/album/show/{id}',[AlbumController::class,'show'])->name('show');
+Route::get('/album/del/{id}',[AlbumController::class,'delete'])->name('delete');
+Route::post('/album/destroy',[AlbumController::class,'destroy'])->name('destroy');

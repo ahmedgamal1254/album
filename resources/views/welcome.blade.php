@@ -26,7 +26,7 @@
                      alt="" srcset=""></td>
                 <td>
                     <a href="{{ route("show",$album->id) }}" class="btn btn-success">عرض</a>
-                    <a href="" class="btn btn-primary">تعديل</a>
+                    <a href="{{ route("edit",$album->id) }}" class="btn btn-primary">تعديل</a>
 
                 </td>
               </tr>

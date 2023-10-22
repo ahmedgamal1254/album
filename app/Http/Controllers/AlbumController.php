@@ -39,7 +39,7 @@ class AlbumController extends Controller
 
         $album->save();
 
-    return response()->json('Images uploaded successfully');
+        return redirect('/');
     }
 
     /**
@@ -47,7 +47,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        $album=Album::find($id)->with('media')->first();
+        $album=Album::with('media')->find($id);
     
         $res=json_encode($album);
         $json=json_decode($res,true);
@@ -58,9 +58,11 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Album $album)
+    public function edit($id)
     {
-        //
+        $album=Album::with('media')->find($id);
+
+        return view("edit",compact("album"));
     }
 
     /**
@@ -68,12 +70,21 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, Album $album)
     {
-        //
+        $album=Album::find($request->id);
+        $album->name=$request->name;
+
+        if($request->hasFile('images')){
+            $album->addMultipleMediaFromRequest(['images'])
+            ->each(function ($file) use ($album) {
+                $file->toMediaCollection('images');
+            });
+        }
+
+        $album->save();
+
+        return redirect('/');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Album $album)
     {
         //

@@ -18,5 +18,5 @@ Route::get('/album', function () {
 
 Route::get('/create_album',[AlbumController::class,'create'])->name("create");
 Route::post('/store_album',[AlbumController::class,'store'])->name("store");
-
-
+Route::get('/album/edit/{id}',[AlbumController::class,'edit'])->name('edit');
+Route::get('/album/show/{id}',[AlbumController::class,'show'])->name('show');

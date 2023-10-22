@@ -25,8 +25,9 @@
                     style="width:70px;height:70px;"
                      alt="" srcset=""></td>
                 <td>
-                    <a href="" class="btn btn-success-gradient">عرض</a>
-                    <a href="" class="btn btn-success-gradient">تعديل</a>
+                    <a href="{{ route("show",$album->id) }}" class="btn btn-success">عرض</a>
+                    <a href="" class="btn btn-primary">تعديل</a>
+
                 </td>
               </tr>
 

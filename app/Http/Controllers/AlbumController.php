@@ -45,8 +45,14 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album)
+    public function show($id)
     {
+        $album=Album::find($id)->with('media')->first();
+    
+        $res=json_encode($album);
+        $json=json_decode($res,true);
+
+        return view('show',compact('album'));
     }
 
     /**

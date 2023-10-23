@@ -17,14 +17,17 @@
     </style>
 </head>
 <body>
+    <div style="margin-top: 100px;"></div>
     <div class="container">
-        <div class="card">
-            <form action="{{ route("destroy") }}" method="post">
+        <div class="card d-flex justify-content-center" style="padding: 25px;border-radius:12px;">
+            <form action="{{ route("destroy") }}" class="d-flex justify-content-center flex-column align-items-center" method="post">
                 @csrf
                 <input type="hidden" value="{{ $album["id"] }}" name="id">
-                <p>من فضلك حدد طريقة الحذف</p>
-                <button type="button" class="btn btn-primary-outline" id="btn">هل تريد تحويل الصور الى البوم تانى</button>
-                <div class="form-group select-box">
+                <p class="text-center">من فضلك حدد طريقة الحذف</p>
+                <button type="button" class="btn btn-primary-outline text-center"
+                 id="btn">هل تريد تحويل الصور الى البوم أخر ؟</button>
+
+                <div class="form-group select-box d-flex justify-content-center">
                     <label for="" class="hide" >اختر الالبوم</label>
                     <select name="album_id" id="convert" class="hide form-control">
                         @foreach (App\Models\Album::all() as $album)
@@ -32,15 +35,16 @@
                         @endforeach
                     </select>
 
-                    <div id="ele">
-                        
-                    </div>
+                    <div id="ele"></div>
                     @foreach ($media as $img)
                         <input type="hidden" name="images[]" value="{{ $img["id"] }}">
                     @endforeach
                 </div>
-                <button type="submit" id="convert-btn" class="hide btn-primary">تحويل</button>
-                <button type="submit" id="final" class="btn btn-primary">حذف نهائى</button>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" id="convert-btn" class="hide btn-primary">تحويل</button>
+                    <button type="submit" id="final" class="btn btn-primary">حذف نهائى</button>
+                </div>
             </form>
         </div>
     </div>
